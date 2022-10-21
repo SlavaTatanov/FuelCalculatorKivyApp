@@ -7,7 +7,7 @@ class Container(GridLayout):
     pass
 
 
-class MyApp(MDApp):
+class FuelApp(MDApp):
     theme_sls = ThemeManager
     title = 'myapp'
 
@@ -17,5 +17,5 @@ class MyApp(MDApp):
 
 
 if __name__ == '__main__':
-    MyApp().run()
+    FuelApp().run()
 
