@@ -1,5 +1,32 @@
 <Container>
-    rows:3
+    peoples_lbl: peoples_lbl
+
+    rows:4
+    AnchorLayout:
+        size_hint: 1, 0.2
+        anchor_y: 'top'
+        MDScreen:
+
+            MDBottomNavigation:
+                panel_color: "#0288d1"
+                selected_color_background: "orange"
+                text_color_active: "#263238"
+                text_color_normal: "darkgrey"
+
+                MDBottomNavigationItem:
+                    text: 'Расчет'
+                    icon: 'gas-station'
+
+                MDBottomNavigationItem:
+                    text: 'Журнал'
+                    icon: 'notebook-multiple'
+                    on_tab_press: pass
+
+                MDBottomNavigationItem:
+                    text: 'Настройки'
+                    icon: 'cog'
+
+
     BoxLayout:
         size_hint: 1, 0.6
         MDLabel:
@@ -30,13 +57,16 @@
             MDIconButton:
                 pos_hint: {"center_x": .5, "center_y": .5}
                 icon: "chevron-triple-left"
+                on_press: root.up_peoples(-1)
             MDLabel:
+                id: peoples_lbl
                 halign: 'center'
                 pos_hint: {"center_x": .5, "center_y": .5}
                 text: '1'
             MDIconButton:
                 pos_hint: {"center_x": .5, "center_y": .5}
                 icon: "chevron-triple-right"
+                on_press: root.up_peoples(1)
 
     AnchorLayout:
         size_hint: 1, 0.4

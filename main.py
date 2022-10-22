@@ -4,7 +4,12 @@ from kivymd.theming import ThemeManager
 
 
 class Container(GridLayout):
-    pass
+
+    def up_peoples(self, x):
+        peoples = int(self.peoples_lbl.text)
+        peoples += x
+        if peoples != 0:
+            self.peoples_lbl.text = str(peoples)
 
 
 class FuelApp(MDApp):
