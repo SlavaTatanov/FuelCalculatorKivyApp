@@ -1,79 +1,103 @@
-<Container>
+<WindowManager>:
+    MainWindow:
+
+<MainWindow>
+
     peoples_lbl: peoples_lbl
 
-    rows:4
-    AnchorLayout:
-        size_hint: 1, 0.2
-        anchor_y: 'top'
-        MDScreen:
-
-            MDBottomNavigation:
-                panel_color: "#0288d1"
-                selected_color_background: "orange"
-                text_color_active: "#263238"
-                text_color_normal: "darkgrey"
-
-                MDBottomNavigationItem:
-                    text: 'Расчет'
-                    icon: 'gas-station'
-
-                MDBottomNavigationItem:
-                    text: 'Журнал'
-                    icon: 'notebook-multiple'
-                    on_tab_press: pass
-
-                MDBottomNavigationItem:
-                    text: 'Настройки'
-                    icon: 'cog'
-
-
     BoxLayout:
-        size_hint: 1, 0.6
-        MDLabel:
-            halign: 'center'
-            text: 'Результат расчета\n '
+        orientation:'vertical'
+
+        MDBottomNavigation:
+            panel_color: "#0288d1"
+            selected_color_background: "orange"
+            text_color_active: "#263238"
+            text_color_normal: "darkgrey"
+
+            MDBottomNavigationItem:
+                name: 'calc'
+                text: 'Расчет'
+                icon: 'gas-station'
+
+                GridLayout:
+                    rows:3
+
+                    BoxLayout:
+                        size_hint: 1, 0.6
+                        MDLabel:
+                            halign: 'center'
+                            text: 'Результат расчета\n '
 
 
-    BoxLayout:
-        orientation: 'vertical'
-        padding: ['20dp', '0dp', '20dp', '0dp']
-        spacing: '10sp'
-        MDTextField:
-            hint_text: "Количество километров"
-            mode: "rectangle"
-        MDTextField:
-            hint_text: "Средний расход топлива л/100км"
-            mode: "rectangle"
-        MDTextField:
-            hint_text: "Цена за литр топлива"
-            mode: "rectangle"
-        MDLabel:
-            halign: 'center'
-            text: 'Количество человек'
-        BoxLayout:
-            spacing: '15sp'
-            size_hint: 0.8, 1
-            pos_hint: {"center_x": .5, "center_y": .5}
-            MDIconButton:
-                pos_hint: {"center_x": .5, "center_y": .5}
-                icon: "chevron-triple-left"
-                on_press: root.up_peoples(-1)
-            MDLabel:
-                id: peoples_lbl
-                halign: 'center'
-                pos_hint: {"center_x": .5, "center_y": .5}
-                text: '1'
-            MDIconButton:
-                pos_hint: {"center_x": .5, "center_y": .5}
-                icon: "chevron-triple-right"
-                on_press: root.up_peoples(1)
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding: ['20dp', '0dp', '20dp', '0dp']
+                        spacing: '10sp'
+                        MDTextField:
+                            hint_text: "Количество километров"
+                            mode: "rectangle"
+                        MDTextField:
+                            hint_text: "Средний расход топлива л/100км"
+                            mode: "rectangle"
+                        MDTextField:
+                            hint_text: "Цена за литр топлива"
+                            mode: "rectangle"
+                        MDLabel:
+                            halign: 'center'
+                            text: 'Количество человек'
+                        BoxLayout:
+                            spacing: '15sp'
+                            size_hint: 0.8, 1
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            MDIconButton:
+                                pos_hint: {"center_x": .5, "center_y": .5}
+                                icon: "chevron-triple-left"
+                                on_press: root.up_peoples(-1)
+                            MDLabel:
+                                id: peoples_lbl
+                                halign: 'center'
+                                pos_hint: {"center_x": .5, "center_y": .5}
+                                text: '1'
+                            MDIconButton:
+                                pos_hint: {"center_x": .5, "center_y": .5}
+                                icon: "chevron-triple-right"
+                                on_press: root.up_peoples(1)
+                    AnchorLayout:
+                        size_hint: 1, 0.4
+                        anchor_x: 'center'
+                        anchor_y: 'center'
+                        padding: ['0dp', '10dp', '0dp', '30dp']
+                        MDFillRoundFlatButton:
+                            size_hint: 0.8, 0.2
+                            font_size: '25sp'
+                            text: "Расчет стоимости"
+                            color: "#0288d1"
 
-    AnchorLayout:
-        size_hint: 1, 0.4
-        anchor_x: 'center'
-        anchor_y: 'bottom'
-        padding: ['0dp', '0dp', '0dp', '25dp']
-        MDFillRoundFlatButton:
-            size_hint: 0.8, 0.2
-            font_size: '25sp'
-            text: "Расчет стоимости"
+
+            MDBottomNavigationItem:
+                name: 'Journal'
+                text: 'Журнал'
+                icon: 'notebook-multiple'
+
+                GridLayout:
+                    rows: 1
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        anchor_y: 'center'
+                        MDLabel:
+                            halign: 'center'
+                            text: 'Я\n не\n поеду\n воевать\n на\n Украину!'
+
+            MDBottomNavigationItem:
+                name: 'settings'
+                text: 'Настройки'
+                icon: 'cog'
+
+                GridLayout:
+                    rows: 1
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        anchor_y: 'center'
+                        MDLabel:
+                            halign: 'center'
+                            text: 'Отвечаю!'

@@ -1,10 +1,10 @@
+from kivy.uix.screenmanager import ScreenManager
+from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
-from kivy.uix.gridlayout import GridLayout
-from kivymd.theming import ThemeManager
 
 
-class Container(GridLayout):
-
+class MainWindow(Screen):
     def up_peoples(self, x):
         peoples = int(self.peoples_lbl.text)
         peoples += x
@@ -12,15 +12,15 @@ class Container(GridLayout):
             self.peoples_lbl.text = str(peoples)
 
 
-class FuelApp(MDApp):
-    theme_sls = ThemeManager
-    title = 'myapp'
+class WindowManager(ScreenManager):
+    pass
 
+
+class FuelApp(MDApp):
     def build(self):
-        self.theme_sls.theme_style = 'Light'
-        return Container()
+        kv = Builder.load_file("fuel.kv")
+        return WindowManager()
 
 
 if __name__ == '__main__':
-    FuelApp().run()
-
+  FuelApp().run()
