@@ -2,5 +2,6 @@
 .buildozer/
 bin/
 __pycache__/
+settings_adm.sqbpro
 buildozer.spec
 
