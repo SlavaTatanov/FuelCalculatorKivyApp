@@ -1,9 +1,17 @@
 <WindowManager>:
     MainWindow:
 
+<DataInp@MDTextField>
+    mode: "rectangle"
+    multiline: False
+
 <MainWindow>
 
     peoples_lbl: peoples_lbl
+    result: result
+    km: km
+    consumption: consumption
+    price: price
 
     BoxLayout:
         orientation:'vertical'
@@ -25,23 +33,29 @@
                     BoxLayout:
                         size_hint: 1, 0.6
                         MDLabel:
+                            id: result
                             halign: 'center'
                             text: 'Результат расчета\n '
-
 
                     BoxLayout:
                         orientation: 'vertical'
                         padding: ['20dp', '0dp', '20dp', '0dp']
                         spacing: '10sp'
-                        MDTextField:
+                        DataInp:
+                            id: km
                             hint_text: "Количество километров"
-                            mode: "rectangle"
-                        MDTextField:
+                            input_type: 'number'
+                            input_filter: 'float'
+                        DataInp:
+                            id: consumption
                             hint_text: "Средний расход топлива л/100км"
-                            mode: "rectangle"
-                        MDTextField:
+                            input_type: 'number'
+                            input_filter: 'float'
+                        DataInp:
+                            id: price
                             hint_text: "Цена за литр топлива"
-                            mode: "rectangle"
+                            input_type: 'number'
+                            input_filter: 'float'
                         MDLabel:
                             halign: 'center'
                             text: 'Количество человек'
@@ -62,6 +76,7 @@
                                 pos_hint: {"center_x": .5, "center_y": .5}
                                 icon: "chevron-triple-right"
                                 on_press: root.up_peoples(1)
+
                     AnchorLayout:
                         size_hint: 1, 0.4
                         anchor_x: 'center'
@@ -72,6 +87,7 @@
                             font_size: '25sp'
                             text: "Расчет стоимости"
                             color: "#0288d1"
+                            on_press: root.calculating()
 
 
             MDBottomNavigationItem:
