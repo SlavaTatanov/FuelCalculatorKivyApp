@@ -7,6 +7,8 @@ import settings
 
 
 class MainWindow(Screen):
+    settings.settings['currency'] = settings.sql_request_settings('currency')[0]
+
     def up_peoples(self, x):
         peoples = int(self.peoples_lbl.text)
         peoples += x
@@ -14,11 +16,16 @@ class MainWindow(Screen):
             self.peoples_lbl.text = str(peoples)
 
     def calculating(self):
+
         km = self.km.text
         cons = self.consumption.text
         prc = self.price.text
         peoples = self.peoples_lbl.text
         self.result.text = f'{calculating(km, cons, prc, peoples)} {settings.settings["currency"]}'
+
+    def change_lang(self):
+        import random
+        self.sett_lang.secondary_text = random.choice(['Тык-тык', 'Ой-ой-ой'])
 
 
 class WindowManager(ScreenManager):
@@ -28,7 +35,6 @@ class WindowManager(ScreenManager):
 class FuelApp(MDApp):
     def build(self):
         Builder.load_file("fuel.kv")
-        settings.settings['currency'] = settings.sql_request_settings('currency')[0]
         return WindowManager()
 
 

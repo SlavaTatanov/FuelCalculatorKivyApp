@@ -12,6 +12,7 @@
     km: km
     consumption: consumption
     price: price
+    sett_lang: sett_lang
 
     BoxLayout:
         orientation:'vertical'
@@ -109,11 +110,20 @@
                 text: 'Настройки'
                 icon: 'cog'
 
-                GridLayout:
-                    rows: 1
+                BoxLayout:
+                    padding: [30, 10, 30, 10]
+
                     AnchorLayout:
-                        anchor_x: 'center'
-                        anchor_y: 'center'
-                        MDLabel:
-                            halign: 'center'
-                            text: 'Отвечаю!'
+                        anchor_y: "top"
+
+                        MDList:
+                            TwoLineListItem:
+                                id: sett_lang
+                                text: 'Язык'
+                                secondary_text: 'Русский'
+                                on_touch_down: root.change_lang()
+                            TwoLineListItem:
+                                text: 'Валюта'
+                                secondary_text: 'Тэнге'
+                                on_touch_down: pass
+
