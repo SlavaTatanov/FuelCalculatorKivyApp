@@ -1,6 +1,9 @@
 <WindowManager>:
     MainWindow:
 
+<Item>
+    LeftWidget
+
 <DataInp@MDTextField>
     mode: "rectangle"
     multiline: False
@@ -44,17 +47,17 @@
                         spacing: '10sp'
                         DataInp:
                             id: km
-                            hint_text: "Количество километров"
+                            hint_text: " Количество километров"
                             input_type: 'number'
                             input_filter: 'float'
                         DataInp:
                             id: consumption
-                            hint_text: "Средний расход топлива л/100км"
+                            hint_text: " Средний расход топлива л/100км"
                             input_type: 'number'
                             input_filter: 'float'
                         DataInp:
                             id: price
-                            hint_text: "Цена за литр топлива"
+                            hint_text: " Цена за литр топлива"
                             input_type: 'number'
                             input_filter: 'float'
                         MDLabel:
@@ -121,9 +124,8 @@
                                 id: sett_lang
                                 text: 'Язык'
                                 secondary_text: 'Русский'
-                                on_touch_down: root.change_lang()
+                                on_press: root.show_simple_dialog({"title": "Язык", "items": ["Русский", "English"]})
                             TwoLineListItem:
                                 text: 'Валюта'
-                                secondary_text: 'Тэнге'
-                                on_touch_down: pass
-
+                                secondary_text: 'RUB'
+                                on_press: root.show_simple_dialog({"title": "Валюта", "items":["RUB", "USD", "EUR"]})
