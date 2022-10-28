@@ -1,3 +1,30 @@
+<LangDia>
+    orientation: "vertical"
+    height: "120dp"
+    spacing: "12dp"
+    size_hint_y: None
+    padding: [0, 0, 0, 20]
+
+    OneLineListItem:
+        text: 'Русский'
+    OneLineListItem:
+        text: 'English'
+
+<MoneyDia>
+    orientation: "vertical"
+    height: "170dp"
+    spacing: "12dp"
+    size_hint_y: None
+    padding: [0, 0, 0, 20]
+
+    OneLineListItem:
+        text: 'Руб'
+    OneLineListItem:
+        text: 'USD'
+    OneLineListItem:
+        text: 'EURO'
+
+
 <WindowManager>:
     MainWindow:
 
@@ -124,8 +151,10 @@
                                 id: sett_lang
                                 text: 'Язык'
                                 secondary_text: 'Русский'
-                                on_press: root.show_simple_dialog({"title": "Язык", "items": ["Русский", "English"]})
+                                on_press: root.show_simple_dialog({"title": "Выбор языка", "cls": "lang"})
                             TwoLineListItem:
+                                id: set_money
                                 text: 'Валюта'
                                 secondary_text: 'RUB'
-                                on_press: root.show_simple_dialog({"title": "Валюта", "items":["RUB", "USD", "EUR"]})
+                                on_press: root.show_simple_dialog({"title": "Валюта", "cls": "money"})
+
