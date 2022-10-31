@@ -1,6 +1,9 @@
+names = {'err': 'Заполните все поля'}
+
+
 def calculating(km, cons, prc, peoples):
     if not data_check([km, cons, prc, peoples]):
-        return 'Заполните все поля'
+        return names['err']
     return str(do_calculating(float(km), float(cons), float(prc), int(peoples)))
 
 

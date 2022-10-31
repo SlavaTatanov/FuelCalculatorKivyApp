@@ -1,10 +1,15 @@
 <LangDia>
     orientation: "vertical"
-    height: "120dp"
+    height: "150dp"
     spacing: "12dp"
     size_hint_y: None
     padding: [0, 0, 0, 20]
 
+    BoxLayout:
+        padding: [0, 0, 0, 20]
+        MDLabel:
+            text: "Выбор языка"
+            font_style: "H6"
     OneLineListItem:
         text: 'Русский'
     OneLineListItem:
@@ -12,18 +17,25 @@
 
 <MoneyDia>
     orientation: "vertical"
-    height: "170dp"
+    height: "210dp"
     spacing: "12dp"
     size_hint_y: None
     padding: [0, 0, 0, 20]
 
+    BoxLayout:
+        padding: [0, 0, 0, 20]
+        MDLabel:
+            text: "Выбор валюты"
+            font_style: "H6"
     OneLineListItem:
-        text: 'Руб'
+        text: 'RUB'
+        on_press: app.change_money("RUB"), root.upd("RUB")
     OneLineListItem:
         text: 'USD'
+        on_press: app.change_money("USD"), root.upd("USD")
     OneLineListItem:
         text: 'EURO'
-
+        on_press: app.change_money("EURO"), root.upd("EURO")
 
 <WindowManager>:
     MainWindow:
@@ -37,12 +49,15 @@
 
 <MainWindow>
 
+    id: mw
+
     peoples_lbl: peoples_lbl
     result: result
     km: km
     consumption: consumption
     price: price
     sett_lang: sett_lang
+    set_money: set_money
 
     BoxLayout:
         orientation:'vertical'
@@ -74,17 +89,17 @@
                         spacing: '10sp'
                         DataInp:
                             id: km
-                            hint_text: " Количество километров"
+                            hint_text: "  Количество километров"
                             input_type: 'number'
                             input_filter: 'float'
                         DataInp:
                             id: consumption
-                            hint_text: " Средний расход топлива л/100км"
+                            hint_text: "  Средний расход топлива л/100км"
                             input_type: 'number'
                             input_filter: 'float'
                         DataInp:
                             id: price
-                            hint_text: " Цена за литр топлива"
+                            hint_text: "  Цена за литр топлива"
                             input_type: 'number'
                             input_filter: 'float'
                         MDLabel:
@@ -150,11 +165,11 @@
                             TwoLineListItem:
                                 id: sett_lang
                                 text: 'Язык'
-                                secondary_text: 'Русский'
-                                on_press: root.show_simple_dialog({"title": "Выбор языка", "cls": "lang"})
+                                secondary_text: "Русский"
+                                on_press: app.show_simple_dialog({"title": "Выбор языка", "cls": "lang"})
                             TwoLineListItem:
                                 id: set_money
                                 text: 'Валюта'
-                                secondary_text: 'RUB'
-                                on_press: root.show_simple_dialog({"title": "Валюта", "cls": "money"})
+                                secondary_text: app.money["for_settings"]
+                                on_press: app.show_simple_dialog({"title": "Валюта", "cls": "money"})
 
