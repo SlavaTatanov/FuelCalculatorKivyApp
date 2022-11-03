@@ -5,6 +5,8 @@ from calculating import calculating, names
 from kivy.storage.jsonstore import JsonStore
 from kivymd.uix.dialog import MDDialog
 from kivy.uix.boxlayout import BoxLayout
+from kivymd.uix.button import MDFillRoundFlatIconButton
+from kivymd.uix.label import MDIcon, MDLabel
 import appdata
 
 
@@ -30,6 +32,7 @@ class MainWindow(Screen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.save_button = False
 
     def up_peoples(self, x):
         peoples = int(self.peoples_lbl.text)
@@ -43,11 +46,27 @@ class MainWindow(Screen):
         cons = self.consumption.text
         prc = self.price.text
         peoples = self.peoples_lbl.text
-        res = calculating(km, cons, prc, peoples)
+        res = calculating(km, cons, prc, peoples, money["for_user"])
         if res != names['err']:
-            self.result.text = f'{res} {money["for_user"]}'
+            self.result.text = f'{res}'
+            if not self.save_button:
+                self.save_button = True
+                self.save.clear_widgets()
+                self.save.add_widget(MDFillRoundFlatIconButton(text="Сохранить",
+                                                               pos_hint={"center_x": .5, "center_y": .5},
+                                                               icon="content-save-edit-outline",
+                                                               on_press=lambda slf: self.save_result()))
+
         else:
             self.result.text = f'{res}'
+
+    def save_result(self):
+        self.save.clear_widgets()
+        self.save.add_widget(MDIcon(icon="check-bold",
+                                    pos_hint={"center_x": .5, "center_y": .5},
+                                    ))
+        self.save.add_widget(MDLabel(text=" Сохранено"))
+        self.save_button = False
 
 
 class WindowManager(ScreenManager):

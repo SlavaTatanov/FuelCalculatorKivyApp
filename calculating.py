@@ -1,10 +1,14 @@
 names = {'err': 'Заполните все поля'}
 
 
-def calculating(km, cons, prc, peoples):
+def calculating(km, cons, prc, peoples, money):
     if not data_check([km, cons, prc, peoples]):
         return names['err']
-    return str(do_calculating(float(km), float(cons), float(prc), int(peoples)))
+    res = do_calculating(float(km), float(cons), float(prc), int(peoples))
+    if peoples == '1':
+        return f'С вас {res["money"]} {money}\nПотрачено {res["liters"]} л.'
+    else:
+        return f'С каждого по {res["money"]} {money}\nПотрачено {res["liters"]} л.'
 
 
 def data_check(lst):
@@ -15,6 +19,7 @@ def data_check(lst):
 
 
 def do_calculating(km: float, cons: float, prc: float, peoples: int):
-    res = (prc*cons/100)*km
+    liters = cons * (0.01 * km)
+    res = liters * prc
     res = int(res/peoples)
-    return res
+    return {'money': res, 'liters': round(liters, 1)}

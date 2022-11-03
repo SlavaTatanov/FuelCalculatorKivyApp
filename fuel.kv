@@ -53,6 +53,7 @@
 
     peoples_lbl: peoples_lbl
     result: result
+    save: save
     km: km
     consumption: consumption
     price: price
@@ -77,11 +78,15 @@
                     rows:3
 
                     BoxLayout:
+                        padding: ['20dp', '0dp', '40dp', '0dp']
                         size_hint: 1, 0.6
                         MDLabel:
                             id: result
-                            halign: 'center'
-                            text: 'Результат расчета\n '
+                            halign: 'left'
+                            text: ''
+                        BoxLayout:
+                            id: save
+                            size_hint: 0.6, 1
 
                     BoxLayout:
                         orientation: 'vertical'
@@ -128,11 +133,12 @@
                         anchor_x: 'center'
                         anchor_y: 'center'
                         padding: ['0dp', '10dp', '0dp', '30dp']
-                        MDFillRoundFlatButton:
+                        MDFillRoundFlatIconButton:
                             size_hint: 0.8, 0.2
                             font_size: '25sp'
                             text: "Расчет стоимости"
                             color: "#0288d1"
+                            icon: "gas-station"
                             on_press: root.calculating()
 
 
