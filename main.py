@@ -54,17 +54,23 @@ class MainWindow(Screen):
                 self.save.add_widget(MDFillRoundFlatIconButton(text="Сохранить",
                                                                pos_hint={"center_x": .5, "center_y": .5},
                                                                icon="content-save-edit-outline",
-                                                               on_press=lambda slf: self.save_result()))
+                                                               on_press=lambda slf: self.save_result(res)))
 
         else:
             self.result.text = f'{res}'
 
-    def save_result(self):
+    def save_result(self, obj):
         self.save.clear_widgets()
-        self.save.add_widget(MDIcon(icon="check-bold",
-                                    pos_hint={"center_x": .5, "center_y": .5}
-                                    ))
-        self.save.add_widget(MDLabel(text=" Сохранено"))
+        if obj.save():  # Saving, if date no repeat is ok, else no
+            self.save.add_widget(MDIcon(icon="check-bold",
+                                        pos_hint={"center_x": .5, "center_y": .5}
+                                        ))
+            self.save.add_widget(MDLabel(text=" Сохранено"))
+        else:
+            self.save.add_widget(MDIcon(icon="alert",
+                                        pos_hint={"center_x": .5, "center_y": .5}
+                                        ))
+            self.save.add_widget(MDLabel(text=" Существует"))
         self.save_button = False
 
 
