@@ -1,3 +1,5 @@
+import data
+
 names = {'err': 'Заполните все поля'}
 
 
@@ -6,9 +8,10 @@ def calculating(km, cons, prc, peoples, money):
         return names['err']
     res = do_calculating(float(km), float(cons), float(prc), int(peoples))
     if peoples == '1':
-        return f'С вас {res["money"]} {money}\nПотрачено {res["liters"]} л.'
+        message = f'С вас {res["money"]} {money}\nПотрачено {res["liters"]} л.'
     else:
-        return f'С каждого по {res["money"]} {money}\nПотрачено {res["liters"]} л.'
+        message = f'С каждого по {res["money"]} {money}\nПотрачено {res["liters"]} л.'
+    return data.Trip(km, res['money'], res['liters'], message)
 
 
 def data_check(lst):

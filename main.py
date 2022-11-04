@@ -41,14 +41,13 @@ class MainWindow(Screen):
             self.peoples_lbl.text = str(peoples)
 
     def calculating(self):
-
         km = self.km.text
         cons = self.consumption.text
         prc = self.price.text
         peoples = self.peoples_lbl.text
         res = calculating(km, cons, prc, peoples, money["for_user"])
         if res != names['err']:
-            self.result.text = f'{res}'
+            self.result.text = f'{res.message}'
             if not self.save_button:
                 self.save_button = True
                 self.save.clear_widgets()
@@ -63,7 +62,7 @@ class MainWindow(Screen):
     def save_result(self):
         self.save.clear_widgets()
         self.save.add_widget(MDIcon(icon="check-bold",
-                                    pos_hint={"center_x": .5, "center_y": .5},
+                                    pos_hint={"center_x": .5, "center_y": .5}
                                     ))
         self.save.add_widget(MDLabel(text=" Сохранено"))
         self.save_button = False
