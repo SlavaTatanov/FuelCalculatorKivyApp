@@ -172,10 +172,18 @@
                                 id: sett_lang
                                 text: 'Язык'
                                 secondary_text: "Русский"
-                                on_press: app.show_simple_dialog({"title": "Выбор языка", "cls": "lang"})
+                                on_press: app.show_simple_dialog("lang")
                             TwoLineListItem:
                                 id: set_money
                                 text: 'Валюта'
                                 secondary_text: app.money["for_settings"]
-                                on_press: app.show_simple_dialog({"title": "Валюта", "cls": "money"})
+                                on_press: app.show_simple_dialog("money")
+                            OneLineListItem:
+                                text: 'Очистить историю'
+                                height: '72dp'
+                                on_press: app.show_quest('Очистить историю?', 'Восстановить историю поездок будет невозможно', 'Очистить', 'Отмена')
+                            OneLineListItem:
+                                text: 'О приложении'
+                                height: '72dp'
+
 

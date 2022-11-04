@@ -5,7 +5,7 @@ from calculating import calculating, names
 from kivy.storage.jsonstore import JsonStore
 from kivymd.uix.dialog import MDDialog
 from kivy.uix.boxlayout import BoxLayout
-from kivymd.uix.button import MDFillRoundFlatIconButton
+from kivymd.uix.button import MDFillRoundFlatIconButton, MDFlatButton
 from kivymd.uix.label import MDIcon, MDLabel
 import appdata
 
@@ -95,12 +95,17 @@ class FuelApp(MDApp):
         money = appdata.money[settings["money"]["money"]]
         self.dialog.dismiss()
 
-    def show_simple_dialog(self, cls: dict):
-        if cls["cls"] == "lang":
+    def show_simple_dialog(self, cls):
+        if cls == "lang":
             clas = LangDia
         else:
             clas = MoneyDia
         self.dialog = MDDialog(content_cls=clas(), type="custom", radius=[15, 15, 15, 15])
+        self.dialog.open()
+
+    def show_quest(self, title, text, button1, button2):
+        self.dialog = MDDialog(title=title, text=text, buttons=[MDFlatButton(text=button1),
+                                                                MDFlatButton(text=button2)])
         self.dialog.open()
 
 
