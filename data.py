@@ -26,4 +26,12 @@ class Trip:
         except sq.IntegrityError:
             return False
 
+    @staticmethod
+    def clear_data(dialog):
+        with sq.connect('data.db') as db:
+            cur = db.cursor()
+            cur.execute(f"DELETE FROM trips")
+            db.commit()
+        dialog.dismiss()
+
 

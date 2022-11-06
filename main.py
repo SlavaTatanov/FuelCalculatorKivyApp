@@ -1,6 +1,8 @@
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager
 from kivy.uix.screenmanager import Screen
+
+import data
 from calculating import calculating, names
 from kivy.storage.jsonstore import JsonStore
 from kivymd.uix.dialog import MDDialog
@@ -104,8 +106,12 @@ class FuelApp(MDApp):
         self.dialog.open()
 
     def show_quest(self, title, text, button1, button2):
-        self.dialog = MDDialog(title=title, text=text, buttons=[MDFlatButton(text=button1),
-                                                                MDFlatButton(text=button2)])
+        self.dialog = MDDialog(title=title,
+                               text=text,
+                               buttons=[MDFlatButton(text=button1,
+                                                     on_press=lambda slf:data.Trip.clear_data(self.dialog)),
+                                        MDFlatButton(text=button2,
+                                                     on_press=lambda slf:self.dialog.dismiss())])
         self.dialog.open()
 
 
