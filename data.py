@@ -19,8 +19,8 @@ class Trip:
         try:
             with sq.connect('data.db') as db:
                 cur = db.cursor()
-                cur.execute(f"INSERT INTO trips  (tr_date, km, liters) "
-                            f"VALUES ('{self.date}', '{self.km}', '{self.liters}')")
+                cur.execute(f"INSERT INTO trips  (tr_date, km, liters, money) "
+                            f"VALUES ('{self.date}', '{self.km}', '{self.liters}', '{self.money}')")
                 db.commit()
             return True
         except sq.IntegrityError:
@@ -34,4 +34,13 @@ class Trip:
             db.commit()
         dialog.dismiss()
 
-
+    @staticmethod
+    def get_trips():
+        with sq.connect('data.db') as db:
+            cur = db.cursor()
+            cur.execute(f"SELECT * FROM trips")
+            raw_trips = cur.fetchall()
+            result_trips = []
+            for trip in raw_trips:
+                result_trips.append(Trip(trip[1], trip[3], trip[2], message=None, date=trip[0]))
+            return result_trips

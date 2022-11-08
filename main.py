@@ -1,15 +1,15 @@
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager
 from kivy.uix.screenmanager import Screen
-
-import data
-from calculating import calculating, names
 from kivy.storage.jsonstore import JsonStore
 from kivymd.uix.dialog import MDDialog
 from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDFillRoundFlatIconButton, MDFlatButton
 from kivymd.uix.label import MDIcon, MDLabel
+from kivymd.uix.datatables import MDDataTable
+from calculating import calculating, names
 import appdata
+import data
 
 
 class LangDia(BoxLayout):
@@ -20,7 +20,7 @@ class MoneyDia(BoxLayout):
     @staticmethod
     def upd(date):
         """
-        changing secondary text label on settings screen
+        Changing secondary text label on settings screen (money changing dialog)
         """
         refs['MainWindow'].set_money.secondary_text = date  # in kv file
 
@@ -28,15 +28,26 @@ class MoneyDia(BoxLayout):
 class MainWindow(Screen):
 
     def __new__(cls, *args, **kwargs):
+        """
+        Adds a reference to an object to the list of references
+        """
         ref = super().__new__(cls)
         refs["MainWindow"] = ref
         return ref
 
     def __init__(self, **kwargs):
+        """
+        The button parameter checks if there is already a button,
+        if it already exists, it will not allow adding extra ones
+        """
         super().__init__(**kwargs)
         self.save_button = False
 
     def up_peoples(self, x):
+        """
+        Increases/decreases the text label with the number of people.
+        Checks that the number is at least 1
+        """
         peoples = int(self.peoples_lbl.text)
         peoples += x
         if peoples != 0:
@@ -62,18 +73,31 @@ class MainWindow(Screen):
             self.result.text = f'{res}'
 
     def save_result(self, obj):
+        """
+        Saves the result of the calculation to the database, if the record already exists, reports this,
+        the 'obj.save' function returns false if the record to the database is not successful
+        """
         self.save.clear_widgets()
-        if obj.save():  # Saving, if date no repeat is ok, else no
+        if obj.save():
             self.save.add_widget(MDIcon(icon="check-bold",
-                                        pos_hint={"center_x": .5, "center_y": .5}
-                                        ))
+                                        pos_hint={"center_x": .5, "center_y": .5}))
             self.save.add_widget(MDLabel(text=" Сохранено"))
         else:
             self.save.add_widget(MDIcon(icon="alert",
-                                        pos_hint={"center_x": .5, "center_y": .5}
-                                        ))
+                                        pos_hint={"center_x": .5, "center_y": .5}))
             self.save.add_widget(MDLabel(text=" Существует"))
         self.save_button = False
+
+    def data_table(self):
+        datatable = MDDataTable(pos_hint={'center_x': 0.5, 'center_y': 0.5},
+                                size_hint=(1, 1),
+                                check=False,
+                                use_pagination=True,
+                                pagination_menu_pos='auto',
+                                background_color=(0.0, 0.749, 1.0, .4),
+                                column_data=[("Дата", 20), ("Км", 13), ("Лит", 17), ("Цена", 20)],
+                                )
+        self.data_tab.add_widget(datatable)
 
 
 class WindowManager(ScreenManager):

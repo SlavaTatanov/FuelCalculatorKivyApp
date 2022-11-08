@@ -59,6 +59,7 @@
     price: price
     sett_lang: sett_lang
     set_money: set_money
+    data_tab: data_tab
 
     BoxLayout:
         orientation:'vertical'
@@ -146,15 +147,11 @@
                 name: 'Journal'
                 text: 'Журнал'
                 icon: 'notebook-multiple'
+                on_tab_press:root.data_table()
 
-                GridLayout:
-                    rows: 1
-                    AnchorLayout:
-                        anchor_x: 'center'
-                        anchor_y: 'center'
-                        MDLabel:
-                            halign: 'center'
-                            text: 'Я\n не\n поеду\n воевать\n на\n Украину!'
+                AnchorLayout:
+                    id: data_tab
+
 
             MDBottomNavigationItem:
                 name: 'settings'
