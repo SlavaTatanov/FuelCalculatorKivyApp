@@ -35,7 +35,7 @@ class Trip:
         dialog.dismiss()
 
     @staticmethod
-    def get_trips():
+    def __get_trips():
         with sq.connect('data.db') as db:
             cur = db.cursor()
             cur.execute(f"SELECT * FROM trips")
@@ -44,3 +44,14 @@ class Trip:
             for trip in raw_trips:
                 result_trips.append(Trip(trip[1], trip[3], trip[2], message=None, date=trip[0]))
             return result_trips
+
+    @staticmethod
+    def data_rows():
+        data_in_row = []
+        data_from_base = Trip.__get_trips()
+        for index in range(len(data_from_base)):
+            data_in_row.append((data_from_base[index].date,
+                                data_from_base[index].km,
+                                data_from_base[index].liters,
+                                data_from_base[index].money))
+        return data_in_row

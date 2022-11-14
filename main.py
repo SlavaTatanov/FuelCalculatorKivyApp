@@ -89,6 +89,7 @@ class MainWindow(Screen):
         self.save_button = False
 
     def data_table(self):
+        data_in_row = data.Trip.data_rows()
         datatable = MDDataTable(pos_hint={'center_x': 0.5, 'center_y': 0.5},
                                 size_hint=(1, 1),
                                 check=False,
@@ -96,6 +97,7 @@ class MainWindow(Screen):
                                 pagination_menu_pos='auto',
                                 background_color=(0.0, 0.749, 1.0, .4),
                                 column_data=[("Дата", 20), ("Км", 13), ("Лит", 17), ("Цена", 20)],
+                                row_data=data_in_row
                                 )
         self.data_tab.add_widget(datatable)
 
