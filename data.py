@@ -3,6 +3,9 @@ import sqlite3 as sq
 
 
 class Trip:
+
+    data_actual = False
+
     def __init__(self, km, money, liters, message, date=None):
         self.km = km
         self.money = money
@@ -22,36 +25,41 @@ class Trip:
                 cur.execute(f"INSERT INTO trips  (tr_date, km, liters, money) "
                             f"VALUES ('{self.date}', '{self.km}', '{self.liters}', '{self.money}')")
                 db.commit()
+            self.data_not_actual()
             return True
         except sq.IntegrityError:
             return False
 
-    @staticmethod
-    def clear_data(dialog):
+    @classmethod
+    def clear_data(cls, dialog):
         with sq.connect('data.db') as db:
             cur = db.cursor()
             cur.execute(f"DELETE FROM trips")
             db.commit()
         dialog.dismiss()
+        cls.data_not_actual()
 
-    @staticmethod
-    def __get_trips():
+    @classmethod
+    def __get_trips(cls):
         with sq.connect('data.db') as db:
             cur = db.cursor()
             cur.execute(f"SELECT * FROM trips")
             raw_trips = cur.fetchall()
             result_trips = []
             for trip in raw_trips:
-                result_trips.append(Trip(trip[1], trip[3], trip[2], message=None, date=trip[0]))
+                result_trips.append(cls(trip[1], trip[3], trip[2], message=None, date=trip[0]))
             return result_trips
 
-    @staticmethod
-    def data_rows():
-        data_in_row = []
-        data_from_base = Trip.__get_trips()
-        for index in range(len(data_from_base)):
-            data_in_row.append((data_from_base[index].date,
-                                data_from_base[index].km,
-                                data_from_base[index].liters,
-                                data_from_base[index].money))
-        return data_in_row
+    @classmethod
+    def data_rows(cls):
+        cls.data_is_actual()
+        obj = Trip.__get_trips()
+        return [(o.date, o.km, o.liters, o.money) for o in obj]
+
+    @classmethod
+    def data_is_actual(cls):
+        cls.data_actual = True
+
+    @classmethod
+    def data_not_actual(cls):
+        cls.data_actual = False
